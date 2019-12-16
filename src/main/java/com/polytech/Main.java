@@ -4,7 +4,6 @@ import com.polytech.business.PublicationService;
 import com.polytech.data.InMemoryRepository;
 import com.polytech.data.Story;
 import com.polytech.data.StoryRepository;
-import com.polytech.rest.StoryController;
 
 import java.util.ArrayList;
 

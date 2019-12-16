@@ -10,6 +10,6 @@ public class Story {
 
     @Override
     public String toString() {
-        return this.content;
+        return "{\"content\": \"" + content + "\"}";
     }
 }
