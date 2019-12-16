@@ -12,4 +12,5 @@ public class Story {
     public String toString() {
         return this.content;
     }
+
 }
