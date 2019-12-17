@@ -4,6 +4,10 @@ import com.polytech.business.PublicationService;
 import com.polytech.data.InMemoryRepository;
 import com.polytech.data.Story;
 import com.polytech.data.StoryRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -13,37 +17,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-@WebServlet("/stories")
+@RestController
 public class StoryController extends HttpServlet {
 
-    PublicationService publicationService;
+    InMemoryRepository storyRepository = new InMemoryRepository();
+    PublicationService publicationService=new PublicationService(storyRepository);;
 
-    public StoryController(PublicationService publicationService) {
-        this.publicationService = publicationService;
-    }
-
-    public void share(String content){
+    @PostMapping("/stories")
+    public void share(@RequestBody String content){
         publicationService.share(new Story(content));
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        StoryRepository storyRepository = new InMemoryRepository();
-        PublicationService publicationService = new PublicationService(storyRepository);
-        StoryController storyController = new StoryController(publicationService);
-
-        storyController.share("Marseille");
-        storyController.share("Paris");
-        storyController.share("Lyon");
-
-        ArrayList<Story> allStories = publicationService.fetchAll();
-
-        PrintWriter out = response.getWriter();
-        response.setContentType("application/json");
-        String body = allStories.stream().map(story -> story.toString()).collect(Collectors.joining(","));
-        out.println("[" + body + "]");
+    @GetMapping("/stories")
+    public ArrayList<Story> fetchAll(){
+        return publicationService.fetchAll();
     }
 }
