@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-@WebServlet("/stories")
+@WebServlet("/storiesOld")
 public class StoryControllerOld extends HttpServlet {
 
     PublicationService publicationService;

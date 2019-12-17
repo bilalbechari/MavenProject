@@ -6,4 +6,5 @@ public interface StoryRepository {
 
     void save(Story story);
     ArrayList<Story> findAll();
+    ArrayList<Story> findAll(int skip, int limit);
 }

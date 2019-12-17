@@ -20,4 +20,8 @@ public class PublicationService {
     public ArrayList<Story> fetchAll(){
         return storyRepository.findAll();
     }
+
+    public ArrayList<Story> fetchAll(int skip, int limit){
+        return storyRepository.findAll(skip, limit);
+    }
 }
