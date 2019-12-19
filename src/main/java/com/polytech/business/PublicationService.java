@@ -3,6 +3,7 @@ package com.polytech.business;
 import com.polytech.data.Story;
 import com.polytech.data.StoryRepository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PublicationService {
