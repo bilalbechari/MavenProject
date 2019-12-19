@@ -1,0 +1,6 @@
+<form class="form-story">
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Contenu de votre story" [(ngModel)]="content" name="content"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary" class="float-right" [disabled]="!content" (click)="shareStory()">Partager</button>
+</form>

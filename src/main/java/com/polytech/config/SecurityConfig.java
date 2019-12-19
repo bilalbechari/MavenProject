@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
@@ -43,15 +44,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().mvcMatchers("", "/about", "/contact").permitAll()
+        http.authorizeRequests().mvcMatchers("", "/about", "/contact", "/login").permitAll()
                 .mvcMatchers("/admin").hasRole("ADMIN")
                 .mvcMatchers(HttpMethod.POST,"/stories").authenticated()
                 .mvcMatchers(HttpMethod.GET,"/stories").permitAll()
                 .anyRequest().authenticated()
 //        .and().formLogin().loginPage("/login").successForwardUrl("/home")
-        .and().formLogin().successHandler((httpServletRequest, httpServletResponse, authentication) -> httpServletResponse.setStatus(200))
-                        .failureHandler((httpServletRequest, httpServletResponse, e) -> httpServletResponse.setStatus(401))
+        .and().formLogin().successHandler(successHandler())
+                        .failureHandler(failureHandler())
         .and().logout().logoutSuccessUrl("/")
-        .and().csrf().disable(); // A enlever ensuite
+        .and().csrf().disable(); //A enlever ensuite
+    }
+
+    private AuthenticationFailureHandler failureHandler() {
+        return (httpServletRequest, httpServletResponse, e) -> { httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");httpServletResponse.setStatus(401); };
+    }
+
+    private AuthenticationSuccessHandler successHandler() {
+        return (httpServletRequest, httpServletResponse, authentication) -> { httpServletResponse.setHeader("Access-Control-Allow-Origin", "*"); httpServletResponse.setStatus(200); };
     }
 }
