@@ -50,8 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers(HttpMethod.GET,"/stories").permitAll()
                 .anyRequest().authenticated()
 //        .and().formLogin().loginPage("/login").successForwardUrl("/home")
-        .and().formLogin().successHandler(successHandler())
-                        .failureHandler(failureHandler())
+        .and().formLogin().successHandler(successHandler()).failureHandler(failureHandler())
         .and().logout().logoutSuccessUrl("/")
         .and().csrf().disable(); //A enlever ensuite
     }
@@ -61,6 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationSuccessHandler successHandler() {
-        return (httpServletRequest, httpServletResponse, authentication) -> { httpServletResponse.setHeader("Access-Control-Allow-Origin", "*"); httpServletResponse.setStatus(200); };
+        return (httpServletRequest, httpServletResponse, authentication) -> { httpServletResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:4200"); httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");httpServletResponse.setStatus(200); };
     }
 }

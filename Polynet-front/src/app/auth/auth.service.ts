@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  connected = false
+  connected: boolean = false
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  isConnected(){
+  isConnected():Boolean{
     return this.connected
   }
 
@@ -20,7 +22,8 @@ export class AuthService {
     body.set('password', password);
 
     let options = {
-      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
+      withCredentials: true
     }
 
     return this.http.post('http://localhost:8080/login', body.toString(), options).toPromise().then(() => {

@@ -3,5 +3,6 @@
     <span class="margin-right-auto" routerLink="/">Polynet</span>
     <button mat-button routerLink="/story-publisher" routerLinkActive="active">Story Publisher</button>
     <button mat-button routerLink="/feed" routerLinkActive="active">Feed</button>
+    <button *ngIf="connected" mat-button color="primary" routerLink="/feed" routerLinkActive="active">Deconnexion</button>
   </mat-toolbar-row>
 </mat-toolbar>

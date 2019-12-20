@@ -18,6 +18,7 @@ import {FormsModule} from "@angular/forms";
 import {MatListModule} from '@angular/material/list';
 import { LoginComponent } from './login/login.component';
 import { WallComponent } from './wall/wall.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { WallComponent } from './wall/wall.component';
     FormsModule,
     MatListModule
   ],
-  providers: [],
+  providers: [
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

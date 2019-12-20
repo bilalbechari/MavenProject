@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {FeedService} from "../feed.service";
+import {LoginComponent} from "../login/login.component";
+import {AuthService} from "../auth/auth.service";
 
 @Component({
   selector: 'app-menu',
@@ -7,10 +10,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() {
+  connected: boolean
+
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
+ // /   this.connected = this.authService.isConnected()
   }
 
 }

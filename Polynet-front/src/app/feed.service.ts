@@ -12,7 +12,7 @@ export class FeedService {
   constructor(private http: HttpClient) { }
 
   share(content: string){
-    return this.http.post('http://localhost:8080/stories', content).toPromise().then((success) => {
+    return this.http.post('http://localhost:8080/stories', content,{withCredentials:true}).toPromise().then((success) => {
       const story = { content }
       // this.stories.unshift(story)
       this.fetch()
