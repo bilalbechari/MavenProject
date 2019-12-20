@@ -1,7 +1,13 @@
 package com.polytech.data;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "story")
 public class Story {
 
+    int id;
     String content;
 
     public Story() {  }

@@ -16,7 +16,6 @@ export class FeedService {
       const story = { content }
       // this.stories.unshift(story)
       this.fetch()
-      console.log(this.stories)
     }, (error) => {
       console.log(error)
     })

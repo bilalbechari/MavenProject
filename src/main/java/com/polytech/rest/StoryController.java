@@ -14,7 +14,8 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowCredentials = "true")
+//@CrossOrigin(origins = "*")
 public class StoryController extends HttpServlet {
 
     private PublicationService publicationService;
