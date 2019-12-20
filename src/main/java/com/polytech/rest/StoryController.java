@@ -3,6 +3,7 @@ package com.polytech.rest;
 import com.polytech.business.PublicationService;
 import com.polytech.data.JdbcRepository;
 import com.polytech.data.Story;
+import com.polytech.data.StoryRepositoryJPA;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +19,13 @@ import java.util.ArrayList;
 //@CrossOrigin(origins = "*")
 public class StoryController extends HttpServlet {
 
-    private PublicationService publicationService;
-
     @Autowired
-    public StoryController(PublicationService publicationService) {
-        this.publicationService = publicationService;
-    }
+    private StoryRepositoryJPA storyRepositoryJPA;
+
 
     @PostMapping("/stories")
     public void share(@RequestBody String content){
-        publicationService.share(new Story(content));
+        storyRepositoryJPA.save(new Story(content));
     }
 
 //    @GetMapping("/stories")
@@ -37,6 +35,6 @@ public class StoryController extends HttpServlet {
 
     @GetMapping("/stories")
     public ArrayList<Story> fetchAll(){
-        return publicationService.fetchAll();
+        return new ArrayList<>(storyRepositoryJPA.findAll());
     }
 }

@@ -13,6 +13,14 @@ export class AuthService {
   }
 
   isConnected():Boolean{
+    if(this.connected == true){
+      return true;
+    }
+    this.getConnectedUser().then(()=>{
+        this.connected == true;
+    }).catch(()=>{
+      return false
+    })
     return this.connected
   }
 
@@ -33,5 +41,9 @@ export class AuthService {
       this.connected = false
       console.log("Non connecté")
     })
+  }
+
+  getConnectedUser(){
+    return this.http.get('http://localhost:8080/me').toPromise();
   }
 }
